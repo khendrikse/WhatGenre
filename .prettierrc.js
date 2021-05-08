@@ -1,1 +1,7 @@
-node_modules/eslint-config-yc-base/.prettierrc.js
+module.exports = {
+  singleQuote: true,
+  jsxSingleQuote: true,
+  trailingComma: 'none',
+  arrowParens: 'avoid',
+  endOfLine: 'auto'
+};
