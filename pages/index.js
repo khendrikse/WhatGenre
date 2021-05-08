@@ -1,23 +1,50 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import axios from 'axios';
+import { authUrl } from '../const/auth';
 import styles from '../styles/Home.module.css';
-import getClientToken from './api/getClientToken';
 
 const Home = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [genres, setGenres] = useState(null);
+  const [relatedArtists, setRelatedArtists] = useState(null);
 
-  const getGenres = async (artist) => {
+  const getGenres = async artist => {
     const response = await axios.get(
       `https://api.spotify.com/v1/search?q=${artist}&type=artist`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+          Authorization: `Bearer ${accessToken}`
+        }
       }
     );
-    console.log({ response });
+
+    if (response && response.status === 200) {
+      setGenres(response.data.artists.items[0].genres);
+    }
+  };
+  console.log({ accessToken });
+  const getAccessToken = async () => {
+    // set base url somewhere
+    axios.get('http://localhost:3000/api/getClientToken').then(({ data }) => {
+      setAccessToken(data.accessToken);
+      console.log({ data });
+    });
+  };
+
+  const getRelatedArtists = async genre => {
+    const response = await axios({
+      method: 'get',
+      url: `https://api.spotify.com/v1/search?q=genre:%22${genre}%22&type=artist`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    if (response && response.status === 200) {
+      setRelatedArtists(response.data.artists.items);
+    }
   };
 
   return (
@@ -31,28 +58,45 @@ const Home = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>Sups</h1>
         <form
-          onSubmit={async (e) => {
+          onSubmit={async e => {
             e.preventDefault();
 
             const form = new FormData(e.target);
             const artist = form.get('artist');
 
             if (!accessToken) {
-              // set base url somewhere
-              await axios
-                .get('http://localhost:3000/api/getClientToken')
-                .then(({ data }) => {
-                  setAccessToken(data.accessToken);
-                });
+              await getAccessToken();
             }
 
-            const genres = getGenres(artist);
-            console.log({ artist, accessToken });
+            await getGenres(artist);
           }}
         >
-          <input name='artist' type='text' />
+          <input name='artist' type='text' defaultValue='beyonce' />
           <button type='submit'>search</button>
         </form>
+        <ul>
+          {genres &&
+            genres.length &&
+            genres.map(genre => (
+              <li>
+                <button type='button' onClick={() => getRelatedArtists(genre)}>
+                  {genre}
+                </button>
+              </li>
+            ))}
+        </ul>
+        <ul>
+          {relatedArtists &&
+            relatedArtists.map(artist => <li>{artist.name}</li>)}
+          <button
+            type='button'
+            onClick={() => {
+              window.location.href = authUrl('123');
+            }}
+          >
+            create playlist
+          </button>
+        </ul>
       </main>
 
       <footer className={styles.footer}>
