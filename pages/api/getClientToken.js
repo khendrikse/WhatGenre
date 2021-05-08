@@ -14,9 +14,8 @@ const getClientToken = (req, res) => {
     },
     headers: {
       Authorization:
-        'Basic ' +
-        Buffer.from(clientId + ':' + clientSecret).toString('base64'),
-    },
+        'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64')
+    }
   };
 
   const fetchData = async () => {
