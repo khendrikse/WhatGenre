@@ -1,52 +1,123 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import axios from 'axios';
 import { authUrl } from '../const/auth';
 import styles from '../styles/Home.module.css';
 
+const getTopTracks = async (artists, token, country) => {
+  const promises = artists.map(artist =>
+    axios
+      .get(`https://api.spotify.com/v1/artists/${artist.id}/top-tracks`, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { market: country }
+      })
+      .then(({ data }) => data.tracks[0].uri)
+  );
+
+  return Promise.all(promises).then(responses => responses);
+
+  // artists.reduce(async (acc, curr) => {
+  //   console.log({ acc, curr });
+  //   const topTracks = await axios.get(
+  //     `https://api.spotify.com/v1/artists/${curr.id}/top-tracks`,
+  //     {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //       params: { market: country }
+  //     }
+  //   );
+
+  //   console.log({ topTracks });
+  //   return [...acc, topTracks.data.tracks[0].uri];
+  // }, []);
+};
+
 const Home = () => {
   const router = useRouter();
-  const { accessToken, state } = router.query;
   const clientToken = useRef(null);
+  const [accessToken, setAccessToken] = useState(null);
+  const [artist, setArtist] = useState(null);
   const [genres, setGenres] = useState(null);
   const [relatedArtists, setRelatedArtists] = useState(null);
 
-  useEffect(async () => {
+  useEffect(() => {
+    if (router.query.accessToken) {
+      setAccessToken(router.query.accessToken);
+      Router.push({ pathname: '/' });
+    }
+  }, []);
+
+  useEffect(() => {
     if (accessToken) {
+      const { sessionStorage } = window;
+      const sessionArtist = sessionStorage.getItem('artist');
+      const sessionGenres = sessionStorage.getItem('genres');
+      const sessionRelatedArtists = sessionStorage.getItem('relatedArtists');
+      if (sessionArtist) {
+        setArtist(JSON.parse(sessionArtist));
+      }
+      if (sessionGenres) {
+        setGenres(JSON.parse(sessionGenres));
+      }
+      if (sessionRelatedArtists) {
+        setRelatedArtists(JSON.parse(sessionRelatedArtists));
+      }
+    }
+  }, [accessToken]);
+
+  useEffect(async () => {
+    if (accessToken && relatedArtists) {
       axios
         .get('https://api.spotify.com/v1/me', {
           headers: { Authorization: `Bearer ${accessToken}` }
         })
         .then(({ data }) => {
-          const userId = data.id;
+          const { id, country } = data;
           axios
             .post(
-              `https://api.spotify.com/v1/users/${userId}/playlists`,
+              `https://api.spotify.com/v1/users/${id}/playlists`,
               { name: 'awesomeTestList' },
               { headers: { Authorization: `Bearer ${accessToken}` } }
             )
-            .then(({ data }) => {
+            .then(async ({ data }) => {
               const playListId = data.id;
-
-              console.log({ data });
+              const tracks = await getTopTracks(
+                relatedArtists,
+                accessToken,
+                country
+              );
+              console.log(JSON.parse(JSON.stringify(tracks)));
+              axios
+                .post(
+                  `https://api.spotify.com/v1/playlists/${playListId}/tracks`,
+                  { uris: tracks },
+                  {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                  }
+                )
+                .then(res => console.log({ res }));
             });
         });
     }
-  }, [accessToken]);
+  }, [accessToken, relatedArtists]);
 
   const getGenres = async artist => {
+    console.log({ clientToken });
     const response = await axios.get(
       `https://api.spotify.com/v1/search?q=${artist}&type=artist`,
       {
         headers: {
-          Authorization: `Bearer ${clientToken}`
+          Authorization: `Bearer ${clientToken.current}`
         }
       }
     );
 
     if (response && response.status === 200) {
       setGenres(response.data.artists.items[0].genres);
+      window.sessionStorage.setItem(
+        'genres',
+        JSON.stringify(response.data.artists.items[0].genres)
+      );
     }
   };
 
@@ -57,16 +128,21 @@ const Home = () => {
     });
 
   const getRelatedArtists = async genre => {
+    // CHECK IF WE HAVE A CLIENTTOKEN
     const response = await axios({
       method: 'get',
       url: `https://api.spotify.com/v1/search?q=genre:%22${genre}%22&type=artist`,
       headers: {
-        Authorization: `Bearer ${clientToken}`
+        Authorization: `Bearer ${clientToken.current}`
       }
     });
 
     if (response && response.status === 200) {
       setRelatedArtists(response.data.artists.items);
+      window.sessionStorage.setItem(
+        'relatedArtists',
+        JSON.stringify(response.data.artists.items)
+      );
     }
   };
 
@@ -85,16 +161,17 @@ const Home = () => {
             e.preventDefault();
 
             const form = new FormData(e.target);
-            const artist = form.get('artist');
-
-            if (!clientToken) {
+            const formArtist = form.get('artist');
+            setArtist(formArtist);
+            window.sessionStorage.setItem('artist', JSON.stringify(formArtist));
+            if (!clientToken.current) {
               await getClientToken();
             }
 
-            await getGenres(artist);
+            await getGenres(formArtist);
           }}
         >
-          <input name='artist' type='text' defaultValue='beyonce' />
+          <input name='artist' type='text' defaultValue={artist} required />
           <button type='submit'>search</button>
         </form>
         <ul>
