@@ -8,4 +8,4 @@ export const callBackUrl =
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 export const authUrl = state =>
-  `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${callBackUrl}&response_type=token&state=${state}`;
+  `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${callBackUrl}&scope=user-read-private%20playlist-modify-private%20playlist-modify-public&response_type=token&state=${state}`;

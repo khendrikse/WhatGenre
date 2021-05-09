@@ -5,14 +5,14 @@ const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 const getUserInfo = (req, res) => {
-  const { code } = req.body;
-
+  const { accessToken } = req.body;
+  console.log({ accessToken });
   const options = {
     method: 'post',
     url: userInfo,
     params: {
       grant_type: 'authorization_code',
-      code,
+      // code,
       redirect_uri: callBackUrl
     },
     headers: {
