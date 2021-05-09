@@ -36,28 +36,26 @@ const Home = () => {
     }
   }, [accessToken]);
 
-  const getGenres = async artist => {
+  const getGenres = async (artist, token) => {
     const response = await axios.get(
       `https://api.spotify.com/v1/search?q=${artist}&type=artist`,
       {
         headers: {
-          Authorization: `Bearer ${clientToken}`
+          Authorization: `Bearer ${token}`
         }
       }
     );
 
     if (response && response.status === 200) {
-      console.log({ items: response.data.artists.items });
       setGenres(response.data.artists.items[0].genres);
     }
   };
 
-  const getClientToken = async () => {
-    // set base url somewhere
-    axios.get('http://localhost:3000/api/getClientToken').then(({ data }) => {
-      setClientToken(data.clientToken);
-    });
-  };
+  // set base url somewhere
+  const getClientToken = () =>
+    axios
+      .get('http://localhost:3000/api/getClientToken')
+      .then(({ data }) => data.clientToken);
 
   const getRelatedArtists = async genre => {
     const response = await axios({
@@ -89,12 +87,14 @@ const Home = () => {
 
             const form = new FormData(e.target);
             const artist = form.get('artist');
+            // change token name into something nicer
+            const token = clientToken || (await getClientToken());
 
             if (!clientToken) {
-              await getClientToken();
+              setClientToken(token);
             }
 
-            await getGenres(artist);
+            await getGenres(artist, token);
           }}
         >
           <input name='artist' type='text' defaultValue='beyonce' />
