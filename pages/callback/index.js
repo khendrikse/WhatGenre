@@ -6,7 +6,7 @@ const callback = () => {
     // can halso have 'error'. In that case show a notification.
     // make sure to use state
     const query = window.location.hash.slice(1).split('&');
-    console.log({ query });
+
     const accessToken = query
       .find(element => element.includes('access_token'))
       .split('=')[1];
