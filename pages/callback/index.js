@@ -1,17 +1,24 @@
 import { useEffect } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
+import getHashFragments from '../../helpers/get-hash-fragments';
 
 const callback = () => {
+  const router = useRouter();
+  const { error, state: errorState } = router.query;
+
   useEffect(() => {
-    // can halso have 'error'. In that case show a notification.
-    // make sure to use state
-    const query = window.location.hash.slice(1).split('&');
+    // make sure to use state to check
+    if (error) {
+      console.log('something went wrong');
+      return Router.push({
+        pathname: '/',
+        query: { error, state: errorState }
+      });
+    }
 
-    const accessToken = query
-      .find(element => element.includes('access_token'))
-      .split('=')[1];
+    const { access_token: accessToken, state } = getHashFragments();
 
-    Router.push({ pathname: '/', query: { accessToken } });
+    return Router.push({ pathname: '/', query: { accessToken, state } });
   });
 
   return null;

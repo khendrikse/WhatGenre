@@ -1,4 +1,5 @@
 import axios from 'axios';
+import setSessionStorageItem from './set-session-storage-item';
 
 const getRelatedArtists = async ({ genre, clientToken, setRelatedArtists }) => {
   // CHECK IF WE HAVE A CLIENTTOKEN
@@ -11,11 +12,9 @@ const getRelatedArtists = async ({ genre, clientToken, setRelatedArtists }) => {
   });
 
   if (response && response.status === 200) {
-    setRelatedArtists(response.data.artists.items);
-    window.sessionStorage.setItem(
-      'relatedArtists',
-      JSON.stringify(response.data.artists.items)
-    );
+    const artists = response.data.artists.items;
+    setRelatedArtists(artists);
+    setSessionStorageItem('relatedArtists', artists);
   }
 };
 
