@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import axios from 'axios';
@@ -8,8 +8,7 @@ import styles from '../styles/Home.module.css';
 const Home = () => {
   const router = useRouter();
   const { accessToken, state } = router.query;
-  const [userInfo, setUserInfo] = useState(null);
-  const [clientToken, setClientToken] = useState(null);
+  const clientToken = useRef(null);
   const [genres, setGenres] = useState(null);
   const [relatedArtists, setRelatedArtists] = useState(null);
 
@@ -36,12 +35,12 @@ const Home = () => {
     }
   }, [accessToken]);
 
-  const getGenres = async (artist, token) => {
+  const getGenres = async artist => {
     const response = await axios.get(
       `https://api.spotify.com/v1/search?q=${artist}&type=artist`,
       {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${clientToken}`
         }
       }
     );
@@ -53,9 +52,9 @@ const Home = () => {
 
   // set base url somewhere
   const getClientToken = () =>
-    axios
-      .get('http://localhost:3000/api/getClientToken')
-      .then(({ data }) => data.clientToken);
+    axios.get('http://localhost:3000/api/getClientToken').then(({ data }) => {
+      clientToken.current = data.clientToken;
+    });
 
   const getRelatedArtists = async genre => {
     const response = await axios({
@@ -87,14 +86,12 @@ const Home = () => {
 
             const form = new FormData(e.target);
             const artist = form.get('artist');
-            // change token name into something nicer
-            const token = clientToken || (await getClientToken());
 
             if (!clientToken) {
-              setClientToken(token);
+              await getClientToken();
             }
 
-            await getGenres(artist, token);
+            await getGenres(artist);
           }}
         >
           <input name='artist' type='text' defaultValue='beyonce' />
