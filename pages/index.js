@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import axios from 'axios';
@@ -6,30 +6,56 @@ import { authUrl } from '../const/auth';
 import styles from '../styles/Home.module.css';
 
 const Home = () => {
-  const [accessToken, setAccessToken] = useState(null);
+  const router = useRouter();
+  const { accessToken, state } = router.query;
+  const [userInfo, setUserInfo] = useState(null);
+  const [clientToken, setClientToken] = useState(null);
   const [genres, setGenres] = useState(null);
   const [relatedArtists, setRelatedArtists] = useState(null);
+
+  useEffect(async () => {
+    if (accessToken) {
+      axios
+        .get('https://api.spotify.com/v1/me', {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        })
+        .then(({ data }) => {
+          const userId = data.id;
+          axios
+            .post(
+              `https://api.spotify.com/v1/users/${userId}/playlists`,
+              { name: 'awesomeTestList' },
+              { headers: { Authorization: `Bearer ${accessToken}` } }
+            )
+            .then(({ data }) => {
+              const playListId = data.id;
+
+              console.log({ data });
+            });
+        });
+    }
+  }, [accessToken]);
 
   const getGenres = async artist => {
     const response = await axios.get(
       `https://api.spotify.com/v1/search?q=${artist}&type=artist`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${clientToken}`
         }
       }
     );
 
     if (response && response.status === 200) {
+      console.log({ items: response.data.artists.items });
       setGenres(response.data.artists.items[0].genres);
     }
   };
-  console.log({ accessToken });
-  const getAccessToken = async () => {
+
+  const getClientToken = async () => {
     // set base url somewhere
     axios.get('http://localhost:3000/api/getClientToken').then(({ data }) => {
-      setAccessToken(data.accessToken);
-      console.log({ data });
+      setClientToken(data.clientToken);
     });
   };
 
@@ -38,7 +64,7 @@ const Home = () => {
       method: 'get',
       url: `https://api.spotify.com/v1/search?q=genre:%22${genre}%22&type=artist`,
       headers: {
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${clientToken}`
       }
     });
 
@@ -64,8 +90,8 @@ const Home = () => {
             const form = new FormData(e.target);
             const artist = form.get('artist');
 
-            if (!accessToken) {
-              await getAccessToken();
+            if (!clientToken) {
+              await getClientToken();
             }
 
             await getGenres(artist);

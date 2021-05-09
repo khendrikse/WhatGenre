@@ -22,10 +22,10 @@ const getClientToken = (req, res) => {
     const response = await axios(options);
 
     if (response && response.status === 200) {
-      const { access_token: accessToken } = response.data;
+      const { access_token: clientToken } = response.data;
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ accessToken }));
+      res.end(JSON.stringify({ clientToken }));
     }
   };
 

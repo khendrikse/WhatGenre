@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 
 const callback = () => {
-  const router = useRouter();
-  // can halso have 'error'. In that case show a notification.
-  const { access_token: accessToken, state } = router.query;
-
   useEffect(() => {
-    Router.push({ pathname: '/', query: { accessToken, state } });
+    // can halso have 'error'. In that case show a notification.
+    // make sure to use state
+    const query = window.location.hash.slice(1).split('&');
+    const accessToken = query
+      .find(element => element.includes('access_token'))
+      .split('=')[1];
+
+    Router.push({ pathname: '/', query: { accessToken } });
   });
 
   return null;
