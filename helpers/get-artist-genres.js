@@ -1,4 +1,5 @@
 import axios from 'axios';
+import setSessionStorageItem from './set-session-storage-item';
 
 const getArtistGenres = async ({ formArtist, clientToken, setGenres }) => {
   const response = await axios.get(
@@ -11,11 +12,9 @@ const getArtistGenres = async ({ formArtist, clientToken, setGenres }) => {
   );
 
   if (response && response.status === 200) {
-    setGenres(response.data.artists.items[0].genres);
-    window.sessionStorage.setItem(
-      'genres',
-      JSON.stringify(response.data.artists.items[0].genres)
-    );
+    const { genres } = response.data.artists.items[0];
+    setGenres(genres);
+    setSessionStorageItem('genres', genres);
   }
 };
 

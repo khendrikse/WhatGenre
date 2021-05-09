@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Router, { useRouter } from 'next/router';
+import { nanoid } from 'nanoid';
 import Head from 'next/head';
 import axios from 'axios';
 import { authUrl } from '../const/auth';
@@ -11,6 +12,7 @@ import addTracksToPlaylist from '../helpers/add-tracks-to-playlist';
 import getArtistGenres from '../helpers/get-artist-genres';
 import RelatedArtists from '../components/RelatedArtists';
 import GenresList from '../components/GenresList';
+import setSessionStorageItem from '../helpers/set-session-storage-item';
 
 // set base url somewhere
 const getClientToken = clientToken =>
@@ -86,7 +88,8 @@ const Home = () => {
     const form = new FormData(e.target);
     const formArtist = form.get('artist');
     setArtist(formArtist);
-    window.sessionStorage.setItem('artist', JSON.stringify(formArtist));
+    setSessionStorageItem('artist', formArtist);
+
     if (!clientToken.current) {
       await getClientToken(clientToken);
     }
@@ -115,10 +118,13 @@ const Home = () => {
           setRelatedArtists={setRelatedArtists}
         />
         <RelatedArtists artists={relatedArtists} />
+        {/* make only possible to click when entire form has been filled in */}
         <button
           type='button'
           onClick={() => {
-            window.location.href = authUrl('123');
+            const authState = nanoid();
+            setSessionStorageItem('stateId', authState);
+            window.location.href = authUrl(authState);
           }}
         >
           create playlist

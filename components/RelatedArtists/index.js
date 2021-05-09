@@ -1,4 +1,5 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 
 function RelatedArtists({ artists }) {
@@ -6,7 +7,7 @@ function RelatedArtists({ artists }) {
   return (
     <ul>
       {artists.map(artist => (
-        <li>{artist.name}</li>
+        <li key={nanoid()}>{artist.name}</li>
       ))}
     </ul>
   );

@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
+
 import getRelatedArtists from '../../helpers/get-related-artists';
+import setSessionStorageItem from '../../helpers/set-session-storage-item';
 
 function GenresList({
   genres,
@@ -12,7 +15,7 @@ function GenresList({
 
   const onClick = genre => {
     setSelectedGenre(genre);
-    window.sessionStorage.setItem('selectedGenre', JSON.stringify(genre));
+    setSessionStorageItem('selectedGenre', genre);
 
     getRelatedArtists({
       genre,
@@ -24,7 +27,7 @@ function GenresList({
   return (
     <ul>
       {genres.map(genre => (
-        <li>
+        <li key={nanoid()}>
           <button type='button' onClick={() => onClick(genre)}>
             {genre}
           </button>
@@ -38,7 +41,7 @@ GenresList.propTypes = {
   genres: PropTypes.array,
   setSelectedGenre: PropTypes.func,
   clientToken: PropTypes.object,
-  setRelatedArtists: PropTypes.object
+  setRelatedArtists: PropTypes.func
 };
 
 export default GenresList;
