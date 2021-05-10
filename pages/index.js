@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Router, { useRouter } from 'next/router';
-import { nanoid } from 'nanoid';
 import Head from 'next/head';
 import axios from 'axios';
-import { authUrl } from '../const/auth';
 import styles from '../styles/Home.module.css';
 import getTopTracks from '../helpers/get-top-tracks';
 import getUserInfo from '../helpers/get-user-info';
@@ -13,6 +11,8 @@ import getArtistGenres from '../helpers/get-artist-genres';
 import RelatedArtists from '../components/RelatedArtists';
 import GenresList from '../components/GenresList';
 import setSessionStorageItem from '../helpers/set-session-storage-item';
+import CreatePlaylistBtn from '../components/CreatePlaylistBtn';
+import Notification from '../components/Notification';
 
 // set base url somewhere
 const getClientToken = clientToken =>
@@ -30,7 +30,6 @@ const Home = () => {
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [relatedArtists, setRelatedArtists] = useState(null);
   const [notification, setNotification] = useState(null);
-
   useEffect(() => {
     if (router.query.accessToken) {
       setAccessToken(router.query.accessToken);
@@ -118,22 +117,12 @@ const Home = () => {
           setRelatedArtists={setRelatedArtists}
         />
         <RelatedArtists artists={relatedArtists} />
-        {/* make only possible to click when entire form has been filled in */}
-        <button
-          type='button'
-          onClick={() => {
-            const authState = nanoid();
-            setSessionStorageItem('stateId', authState);
-            window.location.href = authUrl(authState);
-          }}
-        >
-          create playlist
-        </button>
-        {notification && (
-          <p style={{ color: notification.type === 'error' ? 'red' : 'green' }}>
-            {notification.message}
-          </p>
-        )}
+        <CreatePlaylistBtn
+          relatedArtists={relatedArtists}
+          selectedGenre={selectedGenre}
+        />
+
+        <Notification notification={notification} />
       </main>
 
       <footer className={styles.footer}>
