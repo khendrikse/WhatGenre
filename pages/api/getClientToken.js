@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const clientId = process.env.SPOTIFY_CLIENT_ID;
+const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 const authorizationString = Buffer.from(`${clientId}:${clientSecret}`).toString(
   'base64'
