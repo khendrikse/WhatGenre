@@ -13,6 +13,7 @@ import GenresList from '../components/GenresList';
 import setSessionStorageItem from '../helpers/set-session-storage-item';
 import CreatePlaylistBtn from '../components/CreatePlaylistBtn';
 import Notification from '../components/Notification';
+import getRelatedArtists from '../helpers/get-related-artists';
 
 const getClientToken = clientToken =>
   axios.get('http://localhost:3000/api/getClientToken').then(({ data }) => {
@@ -60,13 +61,19 @@ const Home = () => {
 
   useEffect(async () => {
     if (accessToken && relatedArtists && selectedGenre) {
-      getUserInfo(accessToken).then(({ id, country: market }) =>
-        createPlayList({ id, selectedGenre, accessToken }).then(
-          async ({ data: { id: playListId } }) => {
+      getUserInfo({ accessToken, setNotification }).then(
+        ({ id, country: market }) =>
+          createPlayList({
+            id,
+            selectedGenre,
+            accessToken,
+            setNotification
+          }).then(async ({ data: { id: playListId } }) => {
             const tracks = await getTopTracks({
               relatedArtists,
               accessToken,
-              market
+              market,
+              setNotification
             });
             addTracksToPlaylist({
               playListId,
@@ -74,8 +81,7 @@ const Home = () => {
               accessToken,
               setNotification
             });
-          }
-        )
+          })
       );
     }
   }, [accessToken, relatedArtists, selectedGenre]);
@@ -92,7 +98,28 @@ const Home = () => {
       await getClientToken(clientToken);
     }
 
-    getArtistGenres({ formArtist, clientToken, setGenres });
+    await getArtistGenres({
+      formArtist,
+      clientToken,
+      setGenres,
+      setNotification
+    });
+  };
+
+  const onGenreClick = async genre => {
+    setSelectedGenre(genre);
+    setSessionStorageItem('selectedGenre', genre);
+
+    if (!clientToken.current) {
+      await getClientToken(clientToken);
+    }
+
+    await getRelatedArtists({
+      genre,
+      clientToken,
+      setRelatedArtists,
+      setNotification
+    });
   };
 
   return (
@@ -109,12 +136,7 @@ const Home = () => {
           <input name='artist' type='text' defaultValue={artist} required />
           <button type='submit'>search</button>
         </form>
-        <GenresList
-          genres={genres}
-          setSelectedGenre={setSelectedGenre}
-          clientToken={clientToken}
-          setRelatedArtists={setRelatedArtists}
-        />
+        <GenresList genres={genres} onGenreClick={onGenreClick} />
         <RelatedArtists artists={relatedArtists} />
         <CreatePlaylistBtn
           relatedArtists={relatedArtists}
