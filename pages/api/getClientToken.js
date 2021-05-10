@@ -3,8 +3,10 @@ import { spotifyTokenUrl } from '../../const/auth';
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+const authorizationString = Buffer.from(`${clientId}:${clientSecret}`).toString(
+  'base64'
+);
 
-// client credentials flow
 const getClientToken = (req, res) => {
   const options = {
     method: 'post',
@@ -13,8 +15,7 @@ const getClientToken = (req, res) => {
       grant_type: 'client_credentials'
     },
     headers: {
-      Authorization:
-        'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64')
+      Authorization: `Basic ${authorizationString}`
     }
   };
 

@@ -14,7 +14,6 @@ import setSessionStorageItem from '../helpers/set-session-storage-item';
 import CreatePlaylistBtn from '../components/CreatePlaylistBtn';
 import Notification from '../components/Notification';
 
-// set base url somewhere
 const getClientToken = clientToken =>
   axios.get('http://localhost:3000/api/getClientToken').then(({ data }) => {
     // eslint-disable-next-line no-param-reassign
