@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { callBackUrl, spotifyTokenUrl } from '../../const/auth';
+import { spotifyTokenUrl } from '../../const/auth';
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
