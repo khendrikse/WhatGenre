@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { spotifyTokenUrl } from '../../const/auth';
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -10,7 +9,7 @@ const authorizationString = Buffer.from(`${clientId}:${clientSecret}`).toString(
 const getClientToken = (req, res) => {
   const options = {
     method: 'post',
-    url: spotifyTokenUrl,
+    url: 'https://accounts.spotify.com/api/token',
     params: {
       grant_type: 'client_credentials'
     },
