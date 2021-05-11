@@ -1,11 +1,12 @@
 import axios from 'axios';
 import setSessionStorageItem from './set-session-storage-item';
 
-const getArtistGenres = async ({
+const getArtistInfo = async ({
   formArtist,
   clientToken,
   setGenres,
-  setNotification
+  setNotification,
+  setArtistId
 }) =>
   axios
     .get(`https://api.spotify.com/v1/search?q=${formArtist}&type=artist`, {
@@ -14,8 +15,10 @@ const getArtistGenres = async ({
       }
     })
     .then(res => {
-      const { genres } = res.data.artists.items[0];
+      const { genres, id } = res.data.artists.items[0];
       setGenres(genres);
+      setArtistId(id);
+      setSessionStorageItem('artistId', id);
       return setSessionStorageItem('genres', genres);
     })
     .catch(() =>
@@ -25,4 +28,4 @@ const getArtistGenres = async ({
       })
     );
 
-export default getArtistGenres;
+export default getArtistInfo;

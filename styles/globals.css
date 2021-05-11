@@ -1,16 +1,274 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+/* Base Styles -------------------- */
 
 * {
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: white;
+}
+body {
+  background-color: black;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+input {
+  min-width: 200px;
+  border: none;
+  padding: 20px;
+  background-color: #222326;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  outline: none;
+  margin: 20px;
+  text-align: center;
+}
+
+button {
+  border-radius: 500px;
+  padding: 11px 36px 9px;
+  border: none;
+  min-width: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  letter-spacing: 2px;
+  margin: 10px;
+}
+
+form {
+  display: inline-block;
+}
+/* Nav Styles -------------------- */
+
+nav {
+  height: 10vh;
+  padding: 3vh 9vw;
+  min-height: 60px;
+  width: 100%;
+  position: absolute;
+  z-index: 6;
+}
+
+nav h1 {
+  display: inline-block;
+  color: white;
+  font-size: 1.8rem;
+}
+
+nav p{
+  font-size: 0.8rem;
+  padding: 10px;
+  line-height: 0rem;
+}
+
+.navbar-logo {
+  height: 40px;
+}
+
+/* Flex Styles -------------------- */
+
+.flex-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.flex-item {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 500px;
+          flex: 1 1 500px;
+  color: black;
+}
+
+/* Section Styles -------------------- */
+
+#first-section {
+  padding: 15vh 9vw;
+  min-height: 100vh;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#genres {
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: black;
+  color: white;
+  position: relative;
+}
+
+#genres .flex-item {
+  padding: 1vh 9vw;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 300px;
+          flex: 1 1 300px;
+}
+
+#genres .flex-item h1 {
+  line-height: 3rem;
+}
+
+#genres button {
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 11px 36px 9px;
+  min-width: 30px;
+  margin: 5px;
+}
+
+#related {
+  padding: 1vh 9vw;
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
+  background-color: black;
+  position: relative;
+}
+
+#related button {
+  padding: 11px 36px 9px;
+  min-width: 20px;
+  max-height: 50px;
+  display: inline;
+  position: relative;
+}
+
+#related h3 {
+  margin-left: 10px;
+}
+/* Main Styles -------------------- */
+
+.genres-list {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+
+}
+
+.artist-info {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+}
+
+.search-block {
+  text-align: center;
+  padding-top: 1vh;
+}
+
+.search-block p {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.color1{
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  z-index: 1;
+}
+
+.color2 {
+  mix-blend-mode: lighten;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  position: absolute;
+  z-index: 3;
+}
+
+.top {
+  z-index: 5;
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+}
+
+.image {
+  z-index: 4;
+  background-size: cover;
+  background-position-y: center;
+  background-position-x: center;
+  mix-blend-mode: multiply;
+  -webkit-filter: grayscale(100%) contrast(1);
+          filter: grayscale(100%) contrast(1);
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+}
+
+
+@media (min-width: 800px) {
+  h1 {
+    font-size: 6rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+
+  button {
+    border-radius: 500px;
+    padding: 21px 56px 19px;
+    border: none;
+    min-width: 40px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 2px;
+    margin: 10px;
+  }
+  .genres-list,
+  .artist-info {
+    -webkit-box-ordinal-group: 1;
+        -ms-flex-order: 0;
+            order: 0;
+  }
+  #genres .flex-item{
+    padding: 15vh 9vw;
+  }
+
+  #genres .flex-item h1 {
+    line-height: 6rem;
+  }
+
+  #related {
+    padding: 15vh 9vw;
+  }
 }
