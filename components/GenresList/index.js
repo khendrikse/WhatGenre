@@ -75,20 +75,8 @@ function GenresList({
           />
         </div>
       </div>
-      <div
-        className='color1'
-        style={{
-          backgroundImage: 'linear-gradient(#000,transparent)',
-          backgroundColor: '#51FF00'
-        }}
-      >
-        <div
-          className='color2'
-          style={{
-            backgroundImage: 'linear-gradient(#000,transparent)',
-            backgroundColor: '#7400BF'
-          }}
-        />
+      <div className='color1'>
+        <div className='color2' />
         <div
           className='image'
           style={{ backgroundImage: `url(${image.url})` }}

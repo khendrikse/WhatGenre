@@ -5,7 +5,6 @@
   padding: 0;
   font-family: 'Rubik', sans-serif;
   font-weight: 300;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: white;
 }
@@ -87,20 +86,12 @@ nav p {
 /* Flex Styles -------------------- */
 
 .flex-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-flow: row wrap;
   flex-flow: row wrap;
-  -ms-flex-pack: distribute;
   justify-content: space-around;
 }
 
 .flex-item {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 500px;
   flex: 1 1 500px;
   color: black;
 }
@@ -111,17 +102,19 @@ nav p {
   padding: 15vh 9vw;
   min-height: 100vh;
   width: 100%;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
+  background-image: linear-gradient(transparent, #000),
+    linear-gradient(90deg, #ffec00, #ff00a6);
+}
+
+#first-section button {
+  background-color: #ffec00;
 }
 
 #genres {
   min-height: 100vh;
   height: auto;
   width: 100%;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background-color: black;
   color: white;
@@ -130,8 +123,6 @@ nav p {
 
 #genres .flex-item {
   padding: 1vh 9vw;
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 300px;
   flex: 1 1 300px;
 }
 
@@ -152,6 +143,8 @@ nav p {
   min-height: 100vh;
   height: auto;
   width: 100%;
+  background-image: linear-gradient(transparent, #000),
+    linear-gradient(90deg, #5a009c, #00e8c5);
   background-color: black;
   position: relative;
 }
@@ -159,9 +152,9 @@ nav p {
 #related button {
   padding: 11px 36px 9px;
   min-width: 20px;
-  max-height: 50px;
   display: inline;
   position: relative;
+  background-color: black;
 }
 
 #related h3 {
@@ -170,14 +163,10 @@ nav p {
 /* Main Styles -------------------- */
 
 .genres-list {
-  -webkit-box-ordinal-group: 3;
-  -ms-flex-order: 2;
   order: 2;
 }
 
 .artist-info {
-  -webkit-box-ordinal-group: 2;
-  -ms-flex-order: 1;
   order: 1;
 }
 
@@ -197,6 +186,8 @@ nav p {
   min-height: 100vh;
   height: auto;
   z-index: 1;
+  background-image: linear-gradient(#000, transparent);
+  background-color: #51ff00;
 }
 
 .color2 {
@@ -206,6 +197,8 @@ nav p {
   height: auto;
   position: absolute;
   z-index: 3;
+  background-image: linear-gradient(#000, transparent);
+  background-color: #7400bf;
 }
 
 .top {
@@ -254,8 +247,6 @@ nav p {
   }
   .genres-list,
   .artist-info {
-    -webkit-box-ordinal-group: 1;
-    -ms-flex-order: 0;
     order: 0;
   }
 
