@@ -9,7 +9,6 @@ const callback = () => {
   useEffect(() => {
     // make sure to use state to check
     if (error) {
-      console.log('something went wrong');
       return Router.push({
         pathname: '/',
         query: { error, state: errorState }
