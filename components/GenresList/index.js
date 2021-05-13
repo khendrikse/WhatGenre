@@ -1,13 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
+import setSessionStorageItem from '../../helpers/set-session-storage-item';
+import getClientToken from '../../helpers/get-client-token';
+import getRelatedArtists from '../../helpers/get-related-artists';
+import Notification from '../Notification';
 
-function GenresList({ genres, onGenreClick, artist, colors }) {
-  if (!genres || !artist || !genres.length) return null;
+function GenresList({
+  artist,
+  setSelectedGenre,
+  setRelatedArtists,
+  clientToken
+}) {
+  const [notification, setNotification] = useState({});
+
+  if (!artist) return null;
   const {
     id,
     name,
+    genres,
     images: { 0: image }
   } = artist;
+
+  const onGenreClick = async genre => {
+    setSelectedGenre(genre);
+    setSessionStorageItem('selectedGenre', genre);
+
+    if (!clientToken.current) {
+      await getClientToken(clientToken);
+    }
+
+    await getRelatedArtists({
+      genre,
+      clientToken,
+      setRelatedArtists,
+      setNotification
+    });
+
+    Router.push('/#related', undefined, { shallow: true });
+  };
 
   return (
     <section id='genres' className='flex-container'>
@@ -63,15 +94,16 @@ function GenresList({ genres, onGenreClick, artist, colors }) {
           style={{ backgroundImage: `url(${image.url})` }}
         />
       </div>
+      <Notification notification={notification} />
     </section>
   );
 }
 
 GenresList.propTypes = {
-  genres: PropTypes.array,
-  onGenreClick: PropTypes.func,
+  setSelectedGenre: PropTypes.func,
   artist: PropTypes.object,
-  colors: PropTypes.array
+  clientToken: PropTypes.object,
+  setRelatedArtists: PropTypes.func
 };
 
 export default GenresList;

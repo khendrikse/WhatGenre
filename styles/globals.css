@@ -259,10 +259,6 @@ nav p {
     order: 0;
   }
 
-  .genres-list ul {
-    list-style-type: none;
-  }
-
   #genres .flex-item {
     padding: 15vh 9vw;
   }

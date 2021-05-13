@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CreatePlaylistBtn from '../CreatePlaylistBtn';
 
-function RelatedArtists({ artists, genre, relatedArtists }) {
+function RelatedArtists({ artists, genre, children }) {
   if (!artists) return null;
 
   return (
@@ -24,10 +23,7 @@ function RelatedArtists({ artists, genre, relatedArtists }) {
           </button>
         ))}
       </div>
-      <CreatePlaylistBtn
-        relatedArtists={relatedArtists}
-        selectedGenre={genre}
-      />
+      <div>{children}</div>
     </section>
   );
 }
@@ -35,7 +31,7 @@ function RelatedArtists({ artists, genre, relatedArtists }) {
 RelatedArtists.propTypes = {
   artists: PropTypes.array,
   genre: PropTypes.string,
-  relatedArtists: PropTypes.array
+  children: PropTypes.node
 };
 
 export default RelatedArtists;

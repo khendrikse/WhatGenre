@@ -7,15 +7,23 @@ const callback = () => {
   const { error, state: errorState } = router.query;
 
   useEffect(() => {
-    // make sure to use state to check
-    if (error) {
+    const sessionState = JSON.parse(sessionStorage.getItem('stateId'));
+
+    if (error && errorState === sessionState) {
       return Router.push({
         pathname: '/',
-        query: { error, state: errorState }
+        query: { error }
       });
     }
 
     const { access_token: accessToken, state } = getHashFragments();
+
+    if (sessionState !== state) {
+      return Router.push({
+        pathname: '/',
+        query: { error: 'something went wrong' }
+      });
+    }
 
     return Router.push({ pathname: '/', query: { accessToken, state } });
   });
