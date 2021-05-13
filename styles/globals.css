@@ -6,7 +6,7 @@
   font-family: 'Rubik', sans-serif;
   font-weight: 300;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   color: white;
 }
 body {
@@ -74,7 +74,7 @@ nav h1 {
   font-size: 1.8rem;
 }
 
-nav p{
+nav p {
   font-size: 0.8rem;
   padding: 10px;
   line-height: 0rem;
@@ -92,16 +92,16 @@ nav p{
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
 }
 
 .flex-item {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 500px;
-          flex: 1 1 500px;
+  -ms-flex: 1 1 500px;
+  flex: 1 1 500px;
   color: black;
 }
 
@@ -112,8 +112,8 @@ nav p{
   min-height: 100vh;
   width: 100%;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 #genres {
@@ -121,8 +121,8 @@ nav p{
   height: auto;
   width: 100%;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   background-color: black;
   color: white;
   position: relative;
@@ -131,8 +131,8 @@ nav p{
 #genres .flex-item {
   padding: 1vh 9vw;
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 300px;
-          flex: 1 1 300px;
+  -ms-flex: 1 1 300px;
+  flex: 1 1 300px;
 }
 
 #genres .flex-item h1 {
@@ -171,15 +171,14 @@ nav p{
 
 .genres-list {
   -webkit-box-ordinal-group: 3;
-      -ms-flex-order: 2;
-          order: 2;
-
+  -ms-flex-order: 2;
+  order: 2;
 }
 
 .artist-info {
   -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
+  -ms-flex-order: 1;
+  order: 1;
 }
 
 .search-block {
@@ -192,7 +191,7 @@ nav p{
   color: #666;
 }
 
-.color1{
+.color1 {
   position: absolute;
   width: 100%;
   min-height: 100vh;
@@ -224,12 +223,11 @@ nav p{
   background-position-x: center;
   mix-blend-mode: multiply;
   -webkit-filter: grayscale(100%) contrast(1);
-          filter: grayscale(100%) contrast(1);
+  filter: grayscale(100%) contrast(1);
   width: 100%;
   min-height: 100vh;
   height: auto;
 }
-
 
 @media (min-width: 800px) {
   h1 {
@@ -257,10 +255,15 @@ nav p{
   .genres-list,
   .artist-info {
     -webkit-box-ordinal-group: 1;
-        -ms-flex-order: 0;
-            order: 0;
+    -ms-flex-order: 0;
+    order: 0;
   }
-  #genres .flex-item{
+
+  .genres-list ul {
+    list-style-type: none;
+  }
+
+  #genres .flex-item {
     padding: 15vh 9vw;
   }
 

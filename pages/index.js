@@ -10,7 +10,6 @@ import getArtistInfo from '../helpers/get-artist-info';
 import RelatedArtists from '../components/RelatedArtists';
 import GenresList from '../components/GenresList';
 import setSessionStorageItem from '../helpers/set-session-storage-item';
-import CreatePlaylistBtn from '../components/CreatePlaylistBtn';
 import Notification from '../components/Notification';
 import getRelatedArtists from '../helpers/get-related-artists';
 
@@ -40,7 +39,6 @@ const Home = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [artist, setArtist] = useState(null);
   const [genres, setGenres] = useState(null);
-  const [artistId, setArtistId] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [relatedArtists, setRelatedArtists] = useState(null);
   const [notification, setNotification] = useState(null);
@@ -49,7 +47,7 @@ const Home = () => {
   useEffect(() => {
     if (router.query.accessToken) {
       setAccessToken(router.query.accessToken);
-      Router.push({ pathname: '/' });
+      Router.push('/#related', undefined, { shallow: true });
     }
   }, []);
 
@@ -107,8 +105,6 @@ const Home = () => {
 
     const form = new FormData(e.target);
     const formArtist = form.get('artist');
-    setArtist(formArtist);
-    setSessionStorageItem('artist', formArtist);
 
     if (!clientToken.current) {
       await getClientToken(clientToken);
@@ -119,8 +115,10 @@ const Home = () => {
       clientToken,
       setGenres,
       setNotification,
-      setArtistId
+      setArtist
     });
+
+    Router.push('/#genres', undefined, { shallow: true });
   };
 
   const onGenreClick = async genre => {
@@ -137,6 +135,8 @@ const Home = () => {
       setRelatedArtists,
       setNotification
     });
+
+    Router.push('/#related', undefined, { shallow: true });
   };
 
   return (
@@ -177,20 +177,16 @@ const Home = () => {
           genres={genres}
           onGenreClick={onGenreClick}
           artist={artist}
-          artistId={artistId}
+          colors={colors}
         />
-        <RelatedArtists artists={relatedArtists} />
-        <CreatePlaylistBtn
+        <RelatedArtists
+          genre={selectedGenre}
+          colors={colors}
+          artists={relatedArtists}
           relatedArtists={relatedArtists}
-          selectedGenre={selectedGenre}
         />
-
         <Notification notification={notification} />
       </main>
-
-      <footer>
-        <h2>Floop</h2>
-      </footer>
     </div>
   );
 };
