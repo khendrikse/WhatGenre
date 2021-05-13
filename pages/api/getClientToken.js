@@ -6,7 +6,7 @@ const authorizationString = Buffer.from(`${clientId}:${clientSecret}`).toString(
   'base64'
 );
 
-const getClientToken = (req, res) => {
+const getClientToken = async (req, res) => {
   const options = {
     method: 'post',
     url: 'https://accounts.spotify.com/api/token',
@@ -18,18 +18,15 @@ const getClientToken = (req, res) => {
     }
   };
 
-  const fetchData = async () => {
-    const response = await axios(options);
-
-    if (response && response.status === 200) {
+  const fetchData = () =>
+    axios(options).then(response => {
       const { access_token: clientToken } = response.data;
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ clientToken }));
-    }
-  };
+    });
 
-  fetchData();
+  await fetchData();
 };
 
 export default getClientToken;
