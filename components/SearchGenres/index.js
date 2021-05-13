@@ -27,14 +27,7 @@ function SearchGenres({ clientToken, setArtist, artist }) {
   };
 
   return (
-    <section
-      id='first-section'
-      className='flex-container'
-      style={{
-        backgroundImage:
-          'linear-gradient(transparent,#000), linear-gradient(90deg, #ffec00, #ff00A6)'
-      }}
-    >
+    <section id='first-section' className='flex-container'>
       <div className='flex-item welcome-message'>
         <h3>Start browsing</h3>
         <h1>your music taste.</h1>
@@ -48,9 +41,7 @@ function SearchGenres({ clientToken, setArtist, artist }) {
             defaultValue={artist && artist.name}
             required
           />
-          <button type='submit' style={{ backgroundColor: '#FFEC00' }}>
-            search
-          </button>
+          <button type='submit'>search</button>
         </form>
       </div>
       <Notification notification={notification} />

@@ -21,7 +21,7 @@ function CreatePlaylistBtn({ relatedArtists, selectedGenre }) {
           window.location.href = authUrl(authState);
         }}
       >
-        create playlist
+        create a playlist with these artists top tracks
       </button>
     );
   }
