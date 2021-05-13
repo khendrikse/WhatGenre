@@ -10,6 +10,7 @@ import GenresList from '../components/GenresList';
 import Notification from '../components/Notification';
 import SearchGenres from '../components/SearchGenres';
 import CreatePlaylistBtn from '../components/CreatePlaylistBtn';
+import NavBar from '../components/NavBar';
 
 const Home = () => {
   const router = useRouter();
@@ -96,7 +97,7 @@ const Home = () => {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-
+      <NavBar />
       <main>
         <SearchGenres
           setArtist={setArtist}
