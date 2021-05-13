@@ -48,14 +48,14 @@ function GenresList({ genres, onGenreClick, artist, colors }) {
         className='color1'
         style={{
           backgroundImage: 'linear-gradient(#000,transparent)',
-          backgroundColor: colors[0]
+          backgroundColor: '#51FF00'
         }}
       >
         <div
           className='color2'
           style={{
             backgroundImage: 'linear-gradient(#000,transparent)',
-            backgroundColor: colors[1]
+            backgroundColor: '#7400BF'
           }}
         />
         <div

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
-import axios from 'axios';
 import getTopTracks from '../helpers/get-top-tracks';
 import getUserInfo from '../helpers/get-user-info';
 import createPlayList from '../helpers/create-playlist';
@@ -12,26 +11,7 @@ import GenresList from '../components/GenresList';
 import setSessionStorageItem from '../helpers/set-session-storage-item';
 import Notification from '../components/Notification';
 import getRelatedArtists from '../helpers/get-related-artists';
-
-const getColors = () => {
-  const colors = [
-    ['#E50914', '#282581'],
-    ['#FF0000', '#0A0D44'],
-    ['#00FF8F', '#0A00A4'],
-    ['#FFF300', '#E80000'],
-    ['#00E8C5', '#5A009C'],
-    ['#FF9E00', '#5A009C'],
-    ['#FFEC00', '#FF00A6'],
-    ['#51FF00', '#7400BF']
-  ];
-  return colors[Math.floor(Math.random() * 8)];
-};
-
-const getClientToken = clientToken =>
-  axios.get('http://localhost:3000/api/getClientToken').then(({ data }) => {
-    // eslint-disable-next-line no-param-reassign
-    clientToken.current = data.clientToken;
-  });
+import getClientToken from '../helpers/get-client-token';
 
 const Home = () => {
   const router = useRouter();
@@ -42,7 +22,6 @@ const Home = () => {
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [relatedArtists, setRelatedArtists] = useState(null);
   const [notification, setNotification] = useState(null);
-  const colors = getColors();
 
   useEffect(() => {
     if (router.query.accessToken) {
@@ -102,9 +81,7 @@ const Home = () => {
 
   const onFormSubmit = async e => {
     e.preventDefault();
-
-    const form = new FormData(e.target);
-    const formArtist = form.get('artist');
+    const formArtist = new FormData(e.target).get('artist');
 
     if (!clientToken.current) {
       await getClientToken(clientToken);
@@ -156,7 +133,8 @@ const Home = () => {
           id='first-section'
           className='flex-container'
           style={{
-            backgroundImage: `linear-gradient(transparent,#000), linear-gradient(90deg, ${colors[0]},${colors[1]})`
+            backgroundImage:
+              'linear-gradient(transparent,#000), linear-gradient(90deg, #ffec00, #ff00A6)'
           }}
         >
           <div className='flex-item welcome-message'>
@@ -167,7 +145,7 @@ const Home = () => {
           <div className='flex-item search-block'>
             <form onSubmit={onFormSubmit}>
               <input name='artist' type='text' defaultValue={artist} required />
-              <button type='submit' style={{ backgroundColor: colors[1] }}>
+              <button type='submit' style={{ backgroundColor: '#FFEC00' }}>
                 search
               </button>
             </form>
@@ -177,11 +155,9 @@ const Home = () => {
           genres={genres}
           onGenreClick={onGenreClick}
           artist={artist}
-          colors={colors}
         />
         <RelatedArtists
           genre={selectedGenre}
-          colors={colors}
           artists={relatedArtists}
           relatedArtists={relatedArtists}
         />

@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import setSessionStorageItem from '../../helpers/set-session-storage-item';
 import authUrl from '../../const/authUrl';
 
-function CreatePlaylistBtn({ relatedArtists, selectedGenre, colors }) {
+function CreatePlaylistBtn({ relatedArtists, selectedGenre }) {
   if (relatedArtists && selectedGenre) {
     return (
       <button
         className='playlist'
         style={{
-          backgroundColor: colors[0],
+          backgroundColor: '#00E8C5',
           minHeight: '60px',
           fontWeight: '500'
         }}

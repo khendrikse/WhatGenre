@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CreatePlaylistBtn from '../CreatePlaylistBtn';
 
-function RelatedArtists({ artists, genre, colors, relatedArtists }) {
+function RelatedArtists({ artists, genre, relatedArtists }) {
   if (!artists) return null;
+
   return (
     <section
       id='related'
       className='flex-container'
       style={{
-        backgroundImage: `linear-gradient(transparent, #000), linear-gradient(90deg,${colors[0]}, ${colors[1]})`
+        backgroundImage:
+          'linear-gradient(transparent, #000), linear-gradient(90deg, #5A009C, #00E8C5)'
       }}
     >
       <div>
@@ -25,14 +27,15 @@ function RelatedArtists({ artists, genre, colors, relatedArtists }) {
       <CreatePlaylistBtn
         relatedArtists={relatedArtists}
         selectedGenre={genre}
-        colors={colors}
       />
     </section>
   );
 }
 
 RelatedArtists.propTypes = {
-  artists: PropTypes.array
+  artists: PropTypes.array,
+  genre: PropTypes.string,
+  relatedArtists: PropTypes.array
 };
 
 export default RelatedArtists;
