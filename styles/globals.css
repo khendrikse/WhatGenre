@@ -8,8 +8,13 @@
   box-sizing: border-box;
   color: white;
 }
+
 body {
   background-color: black;
+}
+
+h1, h2, h3 {
+  margin: 8px;
 }
 
 h1 {
