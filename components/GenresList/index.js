@@ -51,9 +51,8 @@ function GenresList({
           ))}
         </div>
         <div className='flex-item artist-info'>
-          <h3>These are</h3>
-          <h1>{`${name}'s genres`}</h1>
-          <h2>Click on a genre to find other artists.</h2>
+          <h2>{`${name}'s genres`}</h2>
+          <h3>Click on a genre to find other artists.</h3>
           <br />
           <iframe
             src={`https://open.spotify.com/embed?uri=spotify:artist:${id}&view=list`}

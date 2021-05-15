@@ -29,15 +29,16 @@ function SearchGenres({ clientToken, setArtist, artist }) {
   return (
     <section id='first-section' className='flex-container'>
       <div className='flex-item welcome-message'>
-        <h3>Start browsing</h3>
-        <h1>your music taste.</h1>
-        <h2>What's your favourite artist's genre?</h2>
+        <h2>Check your music taste. </h2>
+        <h3 id='search-title'>What's your favourite artist's genre?</h3>
       </div>
       <div className='flex-item search-block'>
         <form onSubmit={onFormSubmit}>
           <input
+            placeholder='Artist'
             name='artist'
             type='text'
+            aria-labelledby='search-title'
             defaultValue={artist && artist.name}
             required
           />

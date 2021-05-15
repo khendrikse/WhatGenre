@@ -13,7 +13,9 @@ body {
   background-color: black;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 8px;
 }
 
@@ -23,8 +25,8 @@ h1 {
 }
 
 h2 {
-  font-size: 0.9rem;
-  font-weight: 300;
+  font-size: 3rem;
+  font-weight: 400;
 }
 
 h3 {
@@ -113,7 +115,10 @@ nav p {
 }
 
 #first-section button {
-  background-color: #ffec00;
+  background-color: #d6008b;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 #genres {
@@ -232,7 +237,7 @@ nav p {
     font-size: 6rem;
   }
   h2 {
-    font-size: 1.5rem;
+    font-size: 6rem;
   }
   h3 {
     font-size: 2rem;
