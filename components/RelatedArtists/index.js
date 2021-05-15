@@ -7,7 +7,7 @@ function RelatedArtists({ artists, genre, children }) {
   return (
     <section id='related' className='flex-container'>
       <div>
-        <h3>These artists have the genre {genre}</h3>
+        <h2>These artists have the genre {genre}</h2>
         <br />
 
         {artists.map(artist => (
