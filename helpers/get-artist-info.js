@@ -5,7 +5,8 @@ const getArtistInfo = async ({
   formArtist,
   clientToken,
   setNotification,
-  setArtist
+  setArtist,
+  onSuccess
 }) =>
   axios
     .get(`https://api.spotify.com/v1/search?q=${formArtist}&type=artist`, {
@@ -17,7 +18,8 @@ const getArtistInfo = async ({
       const { 0: artist } = res.data.artists.items;
 
       setArtist(artist);
-      return setSessionStorageItem('artist', artist);
+      setSessionStorageItem('artist', artist);
+      onSuccess();
     })
     .catch(() =>
       setNotification({

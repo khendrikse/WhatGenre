@@ -11,6 +11,8 @@ import Notification from '../components/Notification';
 import SearchGenres from '../components/SearchGenres';
 import CreatePlaylistBtn from '../components/CreatePlaylistBtn';
 import NavBar from '../components/NavBar';
+import getClientToken from '../helpers/get-client-token';
+import getArtistInfo from '../helpers/get-artist-info';
 
 const Home = () => {
   const router = useRouter();
@@ -23,6 +25,22 @@ const Home = () => {
   const [notification, setNotification] = useState(null);
   const scrollToRelated = () =>
     Router.push('/#related', undefined, { shallow: true });
+
+  const setArtistData = async (formArtist, setSearchNotification) => {
+    if (!clientToken.current) {
+      await getClientToken(clientToken);
+    }
+    const onSuccess = () =>
+      Router.push('/#genres', undefined, { shallow: true });
+
+    await getArtistInfo({
+      formArtist,
+      clientToken,
+      setNotification: setSearchNotification || setNotification,
+      setArtist,
+      onSuccess
+    });
+  };
 
   useEffect(() => {
     if (router.query.accessToken) {
@@ -100,7 +118,7 @@ const Home = () => {
       <NavBar />
       <main>
         <SearchGenres
-          setArtist={setArtist}
+          setArtistData={setArtistData}
           clientToken={clientToken}
           artist={artist}
         />
@@ -113,6 +131,7 @@ const Home = () => {
         <RelatedArtists
           genre={selectedGenre}
           artists={relatedArtists}
+          setArtistData={setArtistData}
           relatedArtists={relatedArtists}
         >
           <CreatePlaylistBtn
