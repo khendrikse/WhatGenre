@@ -5,9 +5,11 @@ function Notification({ notification }) {
   if (!notification || !notification.message) return null;
 
   return (
-    <p style={{ color: notification.type === 'error' ? 'red' : 'green' }}>
-      {notification.message}
-    </p>
+    <div className='notification-container'>
+      <p style={{ color: notification.type === 'error' ? 'red' : 'green' }}>
+        {notification.message}
+      </p>
+    </div>
   );
 }
 

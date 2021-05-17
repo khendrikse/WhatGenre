@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function RelatedArtists({ artists, genre, children }) {
+function RelatedArtists({ artists, genre, children, setArtistData }) {
   if (!artists) return null;
 
   return (
@@ -11,7 +11,9 @@ function RelatedArtists({ artists, genre, children }) {
         <br />
 
         {artists.map(artist => (
-          <button type='button'>{artist.name}</button>
+          <button type='button' onClick={() => setArtistData(artist.name)}>
+            {artist.name}
+          </button>
         ))}
       </div>
       <div>{children}</div>
@@ -22,7 +24,8 @@ function RelatedArtists({ artists, genre, children }) {
 RelatedArtists.propTypes = {
   artists: PropTypes.array,
   genre: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  setArtistData: PropTypes.func
 };
 
 export default RelatedArtists;
