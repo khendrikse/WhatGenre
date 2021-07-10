@@ -10,8 +10,12 @@ function RelatedArtists({ artists, genre, children, setArtistData }) {
         <h2>These artists have the genre {genre}</h2>
         <br />
 
-        {artists.map(artist => (
-          <button type='button' onClick={() => setArtistData(artist.name)}>
+        {artists.map((artist, i) => (
+          <button
+            key={`${artist}-${i}`}
+            type='button'
+            onClick={() => setArtistData(artist.name)}
+          >
             {artist.name}
           </button>
         ))}

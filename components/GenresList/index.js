@@ -44,8 +44,12 @@ function GenresList({
     <section id='genres' className='flex-container'>
       <div className='top flex-container'>
         <div className='flex-item genres-list'>
-          {genres.map(genre => (
-            <button type='button' onClick={() => onGenreClick(genre)}>
+          {genres.map((genre, i) => (
+            <button
+              key={`${genre}-${i}`}
+              type='button'
+              onClick={() => onGenreClick(genre)}
+            >
               {genre}
             </button>
           ))}

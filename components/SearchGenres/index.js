@@ -25,7 +25,7 @@ function SearchGenres({ setArtistData, artist }) {
             name='artist'
             type='text'
             aria-labelledby='search-title'
-            defaultValue={artist && artist.name}
+            defaultValue={(artist && artist.name) || ''}
             required
           />
           <button type='submit'>search</button>
