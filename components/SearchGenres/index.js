@@ -16,7 +16,9 @@ function SearchGenres({ setArtistData, artist }) {
     <section id='first-section' className='flex-container'>
       <div className='flex-item welcome-message'>
         <h2>Check your music taste. </h2>
-        <h3 id='search-title'>What's your favourite artist's genre?</h3>
+        <h3 id='search-title'>
+          What&apos;s your favourite artist&apos;s genre?
+        </h3>
       </div>
       <div className='flex-item search-block'>
         <form onSubmit={onFormSubmit}>
