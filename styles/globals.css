@@ -1,16 +1,283 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+/* Base Styles -------------------- */
 
 * {
+  margin: 0;
+  padding: 0;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
   box-sizing: border-box;
+  color: white;
+}
+
+body {
+  background-color: black;
+}
+
+h1,
+h2,
+h3 {
+  margin: 8px;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+input {
+  min-width: 200px;
+  border: none;
+  padding: 20px;
+  background-color: #222326;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  outline: none;
+  margin: 20px;
+  text-align: center;
+}
+
+button {
+  border-radius: 500px;
+  padding: 11px 36px 9px;
+  border: none;
+  min-width: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  letter-spacing: 2px;
+  margin: 10px;
+}
+
+form {
+  display: inline-block;
+}
+/* Nav Styles -------------------- */
+
+nav {
+  height: 10vh;
+  padding: 3vh 9vw;
+  min-height: 60px;
+  width: 100%;
+  position: absolute;
+  z-index: 6;
+}
+
+nav h1 {
+  display: inline-block;
+  color: white;
+  font-size: 1.8rem;
+}
+
+nav p {
+  font-size: 0.8rem;
+  padding: 10px;
+  line-height: 0rem;
+}
+
+.navbar-logo {
+  height: 40px;
+}
+
+/* Flex Styles -------------------- */
+
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.flex-item {
+  flex: 1 1 500px;
+  color: black;
+}
+
+/* Section Styles -------------------- */
+
+#first-section {
+  padding: 15vh 9vw;
+  min-height: 100vh;
+  width: 100%;
+  align-items: center;
+  background-image: linear-gradient(transparent, #000),
+    linear-gradient(90deg, #ffec00, #ff00a6);
+}
+
+#first-section button {
+  background-color: #d6008b;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+#genres {
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
+  align-items: center;
+  background-color: black;
+  color: white;
+  position: relative;
+}
+
+#genres .flex-item {
+  padding: 1vh 9vw;
+  flex: 1 1 300px;
+}
+
+#genres .flex-item h1 {
+  line-height: 3rem;
+}
+
+#genres button {
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 11px 36px 9px;
+  min-width: 30px;
+  margin: 5px;
+}
+
+#related {
+  padding: 1vh 9vw;
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
+  background-image: linear-gradient(transparent, #000),
+    linear-gradient(90deg, #5a009c, #00e8c5);
+  background-color: black;
+  position: relative;
+}
+
+#related button {
+  padding: 11px 36px 9px;
+  min-width: 20px;
+  display: inline;
+  position: relative;
+  background-color: black;
+}
+
+#related h3 {
+  margin-left: 10px;
+}
+/* Main Styles -------------------- */
+
+.genres-list {
+  order: 2;
+}
+
+.artist-info {
+  order: 1;
+}
+
+.search-block {
+  text-align: center;
+  padding-top: 1vh;
+}
+
+.search-block p {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.color1 {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  z-index: 1;
+  background-image: linear-gradient(#000, transparent);
+  background-color: #51ff00;
+}
+
+.color2 {
+  mix-blend-mode: lighten;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  position: absolute;
+  z-index: 3;
+  background-image: linear-gradient(#000, transparent);
+  background-color: #7400bf;
+}
+
+.top {
+  z-index: 5;
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+}
+
+.image {
+  z-index: 4;
+  background-size: cover;
+  background-position-y: center;
+  background-position-x: center;
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1);
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+}
+
+.notification-container {
+  text-align: center;
+  padding: 16px;
+}
+
+.notification-container p {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+@media (min-width: 800px) {
+  h1 {
+    font-size: 6rem;
+  }
+  h2 {
+    font-size: 6rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+
+  button {
+    border-radius: 500px;
+    padding: 21px 56px 19px;
+    border: none;
+    min-width: 40px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 2px;
+    margin: 10px;
+  }
+  .genres-list,
+  .artist-info {
+    order: 0;
+  }
+
+  #genres .flex-item {
+    padding: 15vh 9vw;
+  }
+
+  #genres .flex-item h1 {
+    line-height: 6rem;
+  }
+
+  #related {
+    padding: 15vh 9vw;
+  }
 }
