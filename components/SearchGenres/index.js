@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
-import Notification from '../Notification';
+
+const Notification = dynamic(() => import('../Notification'));
 
 function SearchGenres({ setArtistData, artist }) {
   const [notification, setNotification] = useState({});
