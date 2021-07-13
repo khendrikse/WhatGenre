@@ -111,7 +111,8 @@ const Home = () => {
         />
         <link
           href='https://fonts.googleapis.com/css?family=Rubik:300,400,500'
-          rel='stylesheet'
+          rel='preload'
+          as='font'
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
