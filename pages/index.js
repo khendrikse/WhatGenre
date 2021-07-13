@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import getTopTracks from '../helpers/get-top-tracks';
 import getUserInfo from '../helpers/get-user-info';
 import createPlayList from '../helpers/create-playlist';
 import addTracksToPlaylist from '../helpers/add-tracks-to-playlist';
-import RelatedArtists from '../components/RelatedArtists';
-import GenresList from '../components/GenresList';
-import Notification from '../components/Notification';
-import SearchGenres from '../components/SearchGenres';
-import CreatePlaylistBtn from '../components/CreatePlaylistBtn';
-import NavBar from '../components/NavBar';
 import getClientToken from '../helpers/get-client-token';
 import getArtistInfo from '../helpers/get-artist-info';
+
+const Notification = dynamic(() => import('../components/Notification'));
+const RelatedArtists = dynamic(() => import('../components/RelatedArtists'));
+const GenresList = dynamic(() => import('../components/GenresList'));
+const SearchGenres = dynamic(() => import('../components/SearchGenres'));
+const CreatePlaylistBtn = dynamic(() =>
+  import('../components/CreatePlaylistBtn')
+);
+const NavBar = dynamic(() => import('../components/NavBar'));
 
 const Home = () => {
   const router = useRouter();
@@ -111,7 +115,8 @@ const Home = () => {
         />
         <link
           href='https://fonts.googleapis.com/css?family=Rubik:300,400,500'
-          rel='stylesheet'
+          rel='preload'
+          as='font'
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
