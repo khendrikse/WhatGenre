@@ -16,7 +16,7 @@ app
 
       console.log({
         port,
-        host,
+        host: process.env.HOSTNAME,
         redirect: `https://${host}${req.url}`
       });
       if (
