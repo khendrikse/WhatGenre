@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const { parse } = require('url');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -11,13 +12,18 @@ app
   .then(() => {
     const server = express();
     server.use((req, res, next) => {
-      const hostname = process.env.HOSTNAME;
-      console.log({ port, redirect: `https://${hostname}${req.url}` });
+      const { host } = parse(process.env.HOSTNAME);
+
+      console.log({
+        port,
+        host,
+        redirect: `https://${host}${req.url}`
+      });
       if (
         req.headers['x-forwarded-proto'] === 'http' ||
-        req.hostname === hostname
+        req.hostname === host
       ) {
-        res.redirect(301, `https://${hostname}${req.url}`);
+        res.redirect(301, `https://${host}${req.url}`);
         return;
       }
 
