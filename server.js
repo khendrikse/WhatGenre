@@ -1,19 +1,17 @@
+/* eslint-disable no-console */
 const express = require('express');
 const next = require('next');
-const { parse } = require('url');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const port = dev ? '5000' : process.env.PORT;
 const handle = app.getRequestHandler();
-console.log({ hostname: process.env });
+
 app
   .prepare()
   .then(() => {
     const server = express();
     server.use((req, res, next) => {
-      //       const { host } = parse(process.env.HOSTNAME);
-
       if (req.headers['x-forwarded-proto'] === 'http') {
         res.redirect(301, `https://whatgenre.herokuapp.com${req.url}`);
         return;
