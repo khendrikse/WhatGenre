@@ -12,12 +12,9 @@ app
   .then(() => {
     const server = express();
     server.use((req, res, next) => {
-//       const { host } = parse(process.env.HOSTNAME);
+      //       const { host } = parse(process.env.HOSTNAME);
 
-      if (
-        req.headers['x-forwarded-proto'] === 'http' ||
-        req.hostname === 'whatgenre.herokuapp.com'
-      ) {
+      if (req.headers['x-forwarded-proto'] === 'http') {
         res.redirect(301, `https://whatgenre.herokuapp.com${req.url}`);
         return;
       }
