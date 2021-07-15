@@ -10,12 +10,12 @@ app
   .prepare()
   .then(() => {
     const server = express();
-
+    console.log({ port: process.env.PORT });
     server.use((req, res, next) => {
       const hostname = process.env.HOSTNAME;
       if (
         req.headers['x-forwarded-proto'] === 'http' ||
-        req.hostname === process.env.HOSTNAME
+        req.hostname === hostname
       ) {
         res.redirect(301, `https://${hostname}${req.url}`);
         return;
