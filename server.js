@@ -11,7 +11,7 @@ app
   .prepare()
   .then(() => {
     const server = express();
-    server.use((req, res, next) => {
+    server.use((req, res, _next) => {
       if (req.headers['x-forwarded-proto'] === 'http') {
         res.redirect(301, `https://whatgenre.herokuapp.com${req.url}`);
         return;
@@ -21,7 +21,7 @@ app
         'strict-transport-security',
         'max-age=31536000; includeSubDomains; preload'
       );
-      next();
+      _next();
     });
 
     server.get('*', (req, res) => handle(req, res));

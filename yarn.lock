@@ -246,29 +246,6 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@youngcapital/eslint-config-yc-base@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@youngcapital/eslint-config-yc-base/-/eslint-config-yc-base-2.0.1.tgz#faa6238fb8b0c6e68d4b8d1d8e2fce9137136c06"
-  integrity sha512-YqOhS8dlDVaqQhC1XJT7Pgs7+2p3vyfzYGHJsuErkV/l39ZZcfQb3KPQwBRzSFGK1/zOJA+8kw3OHBFzr364Zw==
-  dependencies:
-    eslint-config-airbnb-base "^14.1.0"
-    eslint-plugin-import "^2.20.1"
-    eslint-plugin-jest "^23.13.2"
-    eslint-plugin-prettier "^3.1.3"
-
-"@youngcapital/eslint-config-yc-react@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@youngcapital/eslint-config-yc-react/-/eslint-config-yc-react-2.0.0.tgz#194a22c227ca5f9fbc58bbee50babbe679636fcd"
-  integrity sha512-ysZRICtyHbNQezUhhXFKSwFSxQHDyUOGogd/WEwAZFenKW8h4SiAj/H/tYPYo5FTnCSP2N51wpXextnmTBNLAQ==
-  dependencies:
-    "@youngcapital/eslint-config-yc-base" "^2.0.0"
-    babel-eslint "^10.1.0"
-    eslint-config-airbnb "^18.1.0"
-    eslint-plugin-import "^2.20.1"
-    eslint-plugin-jsx-a11y "^6.2.3"
-    eslint-plugin-react "^7.20.0"
-    eslint-plugin-react-hooks "^2.5.0"
-
 accepts@~1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.7.tgz#531bc726517a3b2b41f850021c6cc15eaab507cd"
@@ -1190,7 +1167,7 @@ eslint-plugin-jsx-a11y@^6.2.3:
     jsx-ast-utils "^3.1.0"
     language-tags "^1.0.5"
 
-eslint-plugin-prettier@^3.1.3, eslint-plugin-prettier@^3.4.0:
+eslint-plugin-prettier@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.4.0.tgz#cdbad3bf1dbd2b177e9825737fe63b476a08f0c7"
   integrity sha512-UDK6rJT6INSfcOo545jiaOwB701uAIt2/dR7WnFQoGCVl1/EMqdANBmwUaqqQ45aXprsTGzSa39LI1PyuRBxxw==
@@ -1202,7 +1179,7 @@ eslint-plugin-react-hooks@^2.5.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.5.1.tgz#4ef5930592588ce171abeb26f400c7fbcbc23cd0"
   integrity sha512-Y2c4b55R+6ZzwtTppKwSmK/Kar8AdLiC2f9NADCuxbcTgPPg41Gyqa6b9GppgXSvCtkRw43ZE86CT5sejKC6/g==
 
-eslint-plugin-react@^7.20.0, eslint-plugin-react@^7.23.2:
+eslint-plugin-react@^7.20.0:
   version "7.23.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.23.2.tgz#2d2291b0f95c03728b55869f01102290e792d494"
   integrity sha512-AfjgFQB+nYszudkxRkTFu0UR1zEQig0ArVMPloKhxwlwkzaw/fBiH0QWcBBhZONlXqQC51+nfqFrkn4EzHcGBw==
