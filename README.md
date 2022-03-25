@@ -1,7 +1,7 @@
 <h1 align="center">
   WhatGenre
 </h1>
-Live version: http://whatgenre.herokuapp.com
+Live version: https://whatgenre.netlify.app/
 
 This web application uses the Spotify API to find an artist's genre and generates a playlist with top-tracks by artists with the same genre.
 

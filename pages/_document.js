@@ -9,8 +9,13 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang='en'>
-        <Head><script data-goatcounter="https://whatgenre.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script></Head>
+        <Head>
+          <script
+            data-goatcounter='https://whatgenre.goatcounter.com/count'
+            async
+            src='//gc.zgo.at/count.js'
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
